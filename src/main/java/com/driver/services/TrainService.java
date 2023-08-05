@@ -39,7 +39,7 @@ public class TrainService {
         }
         train.setRoute(route);
        Train savedTrain= trainRepository.save(train);
-        return savedTrain.getTrainId();
+        return Integer.valueOf(savedTrain.getTrainId());
     }
 
     //doubt in question
@@ -78,7 +78,7 @@ public class TrainService {
         }
         if(found==false) throw new Exception("Train is not passing from this station");
         List<Ticket> ticketList=train.getBookedTickets();
-        int count=0;
+        Integer count=0;
         for(Ticket ticket:ticketList){
             if(ticket.getFromStation().equals(station)){
                 count+=ticket.getPassengersList().size();
