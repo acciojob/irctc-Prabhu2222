@@ -68,6 +68,14 @@ public class TrainService {
         //throw new Exception("Train is not passing from this station");
         //  in a happy case we need to find out the number of such people.
         Train train =trainRepository.findByTrainId(trainId);
+        boolean stationFound=false;
+        for(Station ele:Station.values()){
+            if(ele.toString().equals(station.toString())) {
+                stationFound=true;
+                break;
+            }
+        }
+        if(stationFound==false)throw new Exception("Train is not passing from this station");
         String stationArray[]=train.getRoute().split(",");
         boolean found=false;
         for(String stationElement:stationArray){
@@ -80,7 +88,7 @@ public class TrainService {
         List<Ticket> ticketList=train.getBookedTickets();
         Integer count=0;
         for(Ticket ticket:ticketList){
-            if(ticket.getFromStation().equals(station)){
+            if(ticket.getFromStation().equals(station.toString())){
                 count+=ticket.getPassengersList().size();
             }
         }
